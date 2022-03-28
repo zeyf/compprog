@@ -3,7 +3,7 @@ using namespace std;
 
 #define loop(s,e) for(int x = s; x < e; x++)
 
-
+// TO VIEW THE COMMENTED, UPDATED VERSION, GO TO Union Find/unionfind.h
 // Disjoint Set / Union Find data structure
 class UnionFind {
 	public:
@@ -57,6 +57,7 @@ class UnionFind {
 
 };
 
+// TO VIEW THE COMMENTED, UPDATED VERSION, GO TO Graphs/weightedgraph.h
 // Weighted Graph (directed/undirected supported)
 class WeightedGraph {
     public:
