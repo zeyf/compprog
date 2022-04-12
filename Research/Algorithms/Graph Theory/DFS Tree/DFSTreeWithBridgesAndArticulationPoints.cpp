@@ -65,6 +65,38 @@ void findBridges(int u, SimpleGraph<int> &graph, vector<int> &in, vector<int> &l
 
 };
 
+void findArticulationPoints(int u, SimpleGraph<int> &graph, vector<int> &in, vector<int> &lowLink, set<int> &visited, set<int> &cutPoints, int &time, int parent) {
+
+    in[u] = lowLink[u] = time++;
+    visited.insert(u);
+
+    int children = 0;
+
+    for (int x = 0; x < graph.getVertexEdges(u).size(); x++) {
+        int nbr = graph.getVertexEdges(u)[x];
+        if (nbr == parent) continue;
+
+        if (!visited.count(nbr)) {
+            findArticulationPoints(nbr, graph, in, lowLink, visited, cutPoints, time, u);
+            lowLink[u] = min(lowLink[u], lowLink[nbr]);
+            if (lowLink[nbr] >= lowLink[u] && u != parent && !cutPoints.count(u)) {
+                cout << u << " IS A CUTPOINT!\n";
+                cutPoints.insert(u);
+            };
+
+            children++;
+        } else {
+            lowLink[u] = min(lowLink[u], in[nbr]);
+        };
+    };
+
+    if (u == parent && children > 1 && !cutPoints.count(u)) {
+        cout << u << " IS A CUTPOINT!\n";
+        cutPoints.insert(u);
+    };
+
+};
+
 int main () {
     SimpleGraph<int> g(true);
     g.addEdge(1, 2);
@@ -92,6 +124,22 @@ int main () {
     };
     
     cout << "\n========\n";
+
+    visited.clear();
+    it = vertices.begin();
+    time = 0;
+
+    for (int x = 0; x < vertices.size(); x++)
+        in[x] = lowLink[x] = UNVISITED;
+
+    cout << "\n========\n\n";
+    set<int> cutPoints;
+    while (it != vertices.end()) {
+        findArticulationPoints(*it, g, in, lowLink, visited, cutPoints, time, *it);
+        it++;
+    }
+
+    cout << "\n========\n\n";
 
     return 0;
 };
