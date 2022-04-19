@@ -5,12 +5,14 @@ using namespace std;
 
 /*DEFINES*/
 
-#define pushb push_back
-#define popb pop_back
+#define add push_back
+#define rem pop_back
 #define ins insert
 #define co count
+#define fi first
+#define se second
 #define sorter(a, comp) sort(a.begin(), a.end(), comp)
-#define sz(a) sz.size()
+#define sz(a) a.size()
 
 
 /*
@@ -51,33 +53,35 @@ typedef map<char, int> mci;
 typedef map<int, vi > mivi;
 typedef map<string, vs > msvs;
 
-mllll dp;
+
+/*
+
+LINK
 
 
-ll f(ll n, ll m, ll k) {
-    if (k < 0 ||) return 0;
-    else if (dp.count(k) && n == 0) return dp[k];
-    else if (n == 0) {
-        return dp[k] = 1;
-    }
-    int x; range(m, 0, -1, x) {
-        dp[k] += f(n-1,m,k-x) % 998244353;
-    };
 
-    return dp[k];
-};
+STRATEGY
+
+
+
+*/
 
 int main () {
 
-    ll n, m, k; cin >> n >> m >> k;
+    int n, x; cin >> n; vll lines(n);
+    range(0, sz(lines), 1, x)
+        cin >> lines[x]; 
 
-    int x; range(0, 7, 1, x) {
-        dice.push_back(x);
+    sort(lines.begin(), lines.end());
+    int r = 2; bool good = false;
+    while (r<n && !good) {
+        ll a = lines[r-2], b = lines[r-1], c = lines[r];
+        if (a+b>c && a+c>b && b+c>a) good = true;
+        r++;
     };
 
-    dp[0] = 1;
-    f(n,m,k);
-    cout << dp[k] << "\n";
+    if (good) cout << "YES\n";
+    else cout << "NO\n";
 
     return 0;
-}
+};

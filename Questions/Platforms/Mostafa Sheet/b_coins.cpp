@@ -51,59 +51,68 @@ typedef map<char, int> mci;
 typedef map<int, vi > mivi;
 typedef map<string, vs > msvs;
 
+string swap(string s, int u, int v) {
+    int t = s[u];
+    s[u] = s[v];
+    s[v] = t;
+    return s;
+}
+
 int main () {
 
-    vs exps(3);
-    cin >> exps[0] >> exps[1] >> exps[2];
-    int agreater = 0, bgreater = 0, cgreater = 0;
+    vs exps(3,""); cin >> exps[0] >> exps[1] >> exps[2];
 
-    int x;
-    range(0, 3, 1, x) {
-        string s = exps[x];
-        if (s == "A>B" || s == "B<A")
-            agreater++;
-        else if (s == "A>C" || s == "C<A") {
-            agreater++;
-        } else if (s == "B>A" || s == "A<B") {
-            bgreater++;
-        } else if (s == "B>C" || s == "C<B") {
-            bgreater++;
-        } else if (s == "C>A" || s == "A<C")
-            cgreater++;
-        else if (s == "C>B" || s == "B<C")
-            cgreater++;
-        else if (s == "A>A" || s == "A<A")
-            agreater++;
-        else if (s == "B>B" || s == "B<B")
-            bgreater++;
-        else if (s == "C>C" || s == "C<C")
-            cgreater++;
+    if (exps[0][1] == '<') {
+        exps[0] = swap(exps[0], 0, 2);
+        exps[0][1] = '>';
+    }
+
+    if (exps[1][1] == '<') {
+        exps[1] = swap(exps[1], 0, 2);
+        exps[1][1] = '>';
+    }
+
+    if (exps[2][1] == '<') {
+        exps[2] = swap(exps[2], 0, 2);
+        exps[2][1] = '>';
+    }
+
+    set<char> lhs;
+    vi counts(3,0);
+    for (auto &exp: exps) {
+        lhs.ins(exp[0]);
+        counts[exp[0]-'A']++;
     };
 
-    if ((agreater > 2 || bgreater > 2 || cgreater > 2)) {
-        cout << "Impossible\n";
-        if (agreater > 2) { cout << "A";} else if (bgreater > 2) cout < "b"; else cout << "c";
-    }
-    else {
-        if (agreater == 2) {
-            if (cgreater > 0)
-                cout << "BCA";
-            else
-                cout << "CBA";
-        } else if (bgreater == 2) {
-            if (agreater > 0)
-                cout << "CAB";
-            else
-                cout << "ACB";
-        } else {
-            if (agreater > 0)
-                cout << "BAC";
-            else
-                cout << "ABC";
-        }
 
-        cout << "\n";
+    if (lhs.size()==3) {
+        cout << "Impossible\n";
+        return 0;
+    };
+
+    vs arranged;
+    for (auto &exp: exps) {
+        if (counts[exp[0]-'A'] == 2) {
+            arranged.pushb(exp);
+        }
     }
+
+    for (auto &exp: exps) {
+        if (counts[exp[0]-'A'] !=2) {
+            arranged.pushb(exp);
+        }
+    }
+
+    if (arranged.back()[2] == arranged[0][0]) {
+        cout << "Impossible\n";
+        return 0;
+    };
+
+    cout << arranged[2][2] << arranged[2][0] << arranged[0][0] << "\n";
+    
+
+
+
 
     return 0;
 };
