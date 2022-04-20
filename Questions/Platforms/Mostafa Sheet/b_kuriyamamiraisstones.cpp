@@ -53,22 +53,31 @@ typedef map<string, vs > msvs;
 
 /*
 
-https://codeforces.com/contest/433/problem/B
+Link: https://codeforces.com/contest/433/problem/B
+
+Topic: Prefix Sums / Range Query / Sorting
+
+Solution: Take prefix sum of regular permutation, and of sorted. Then, take queries.
+
+Time Complexity: O(M + NlogN)
+Space Complexity: O(N)
 
 */
 
 int main () {
 
+    // read in
     int n, m, l, r, x; cin >> n;
-
     vll og(n), so(n);
     range(0, og.size(), 1, x) {
         cin >> og[x];
         so[x] = og[x];
     };
 
+    // sort the array to be sorted...
     sort(so.begin(), so.end());
 
+    // build the prefix sum array for both arrays.
     vll pfog(n), pfso(n);
     pfog[0] = og[0];
     pfso[0] = so[0];
@@ -77,18 +86,27 @@ int main () {
         pfso[x] = so[x] + pfso[x-1];
     };
 
+    // perform m queries...
     cin >> m;
     while(m--) {
+
+        // take in the type and range... remove 1 indexing.
         int type; cin >> type >> l >> r;
         l--; r--;
+
+        // if query on the original array
         if (type == 1) {
+            // if lower bound is 0, no need to sum out subset.
             if (l==0)
                 cout << pfog[r];
+            // lower bound doesn't start at 0, so sum out the subset of [0,l-1] from [0,r] to have [l,r]
             else
                 cout << pfog[r]-pfog[l-1];
         } else {
+            // if lower bound is 0, no need to sum out subset.
             if (l==0)
                 cout << pfso[r];
+            // lower bound doesn't start at 0, so sum out the subset of [0,l-1] from [0,r] to have [l,r]
             else
                 cout << pfso[r]-pfso[l-1];
         };

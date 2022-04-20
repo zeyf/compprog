@@ -53,7 +53,14 @@ typedef map<string, vs > msvs;
 
 /*
 
-https://codeforces.com/contest/363/problem/B
+Link: https://codeforces.com/contest/363/problem/B
+
+Topic: Prefix Sum / Sliding Window / Two Pointer
+
+Solution: Make prefix sum array, and tested all windows of size k for maximal window sum.
+
+Time Complexity: O(N)
+Space Complexity: O(N)
 
 */
 

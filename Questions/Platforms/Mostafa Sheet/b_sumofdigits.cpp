@@ -53,35 +53,51 @@ typedef map<string, vs > msvs;
 
 /*
 
-https://codeforces.com/contest/102/problem/B
+Link: https://codeforces.com/contest/102/problem/B
+
+Topic: Math / Logic?
+
+Solution: Break down number until 1 digit or digit sum length == 1.
+
+Time Complexity: O(kLogS) where k is number of iterations to get to 1 digit.
+Space Complexity: O(1)
 
 */
 
 int main () {
 
+    // read in
     string s; cin >> s;
+    
+    // if one digit... stop.
     if (s.size() == 1) {
         cout << 0 << "\n";
         return 0;
     }
 
+    // keep going while greater than 9...
     int count = 0;
     while (1) {
+
+        // break down and sum number
         long long sum = 0;
         while (s.size() > 0) {
             sum += s.back()-'0';
             s.pop_back();
         };
 
+        // count, and basecase...
         count++;
         if (sum < 10) break;
 
+        // build number back up
         while (sum > 0) {
             s.push_back(48+(sum%10));
             sum /= 10;
         };
     }
 
+    // print answer
     cout << count << "\n";
 
     return 0;

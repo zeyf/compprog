@@ -55,7 +55,14 @@ typedef map<string, vs > msvs;
 
 /*
 
-https://codeforces.com/contest/6/problem/B
+Link: https://codeforces.com/contest/6/problem/B
+
+Topic: Graph
+
+Solution: Mark the president's desk. Take all unique letters on the edge of his desk.
+
+Time Complexity: O(N*M)
+Space Complexity: O(N*M)
 
 */
 
@@ -66,7 +73,7 @@ int main () {
 
     // initialize the board and the visited set
     vector<vc > board(n, vc(m, '.'));
-    spii presidentDesk;
+    unordered_set<pii > presidentDesk;
 
     // read in the board...
     int x, y;

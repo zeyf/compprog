@@ -51,6 +51,27 @@ typedef map<char, int> mci;
 typedef map<int, vi > mivi;
 typedef map<string, vs > msvs;
 
+/*
+
+Link: https://codeforces.com/contest/47/problem/B
+
+Topic: Adhoc / Implementation / Logic
+
+Solution: 
+- Get all expressions to be of format X > Y. If any is X < Y, flip to >, swap X and Y.
+- If on left hand side there are 3 different letters, it's not possible as one has to be bigger than 2 by default.
+- Take counts of the letters on left hand side.
+- Add the 2 with count of 2 on LHS first to array
+- Add the 1 with count of 1 on LHS to end of array
+- If the last expression says greater than the greatest element, it's not possible
+- Print the final statement...
+
+Time Complexity: O(1)
+Space Complexity: O(1)
+
+*/
+
+// swaps string characters
 string swap(string s, int u, int v) {
     int t = s[u];
     s[u] = s[v];
@@ -59,55 +80,53 @@ string swap(string s, int u, int v) {
 }
 
 int main () {
-
+    
+    // read in.
     vs exps(3,""); cin >> exps[0] >> exps[1] >> exps[2];
 
-    if (exps[0][1] == '<') {
-        exps[0] = swap(exps[0], 0, 2);
-        exps[0][1] = '>';
-    }
-
-    if (exps[1][1] == '<') {
-        exps[1] = swap(exps[1], 0, 2);
-        exps[1][1] = '>';
-    }
-
-    if (exps[2][1] == '<') {
-        exps[2] = swap(exps[2], 0, 2);
-        exps[2][1] = '>';
-    }
-
-    set<char> lhs;
+    unordered_set<char> lhs;
     vi counts(3,0);
+
     for (auto &exp: exps) {
+        // flip the expressions to be X > Y
+        if (exp[1] == '<') {
+            exp = swap(exp, 0, 2);
+            exp[1] = '>';
+        }
+
+        // insert LHS and count it.
         lhs.ins(exp[0]);
         counts[exp[0]-'A']++;
     };
 
-
+    // 3 distinct characters on LHS...
     if (lhs.size()==3) {
         cout << "Impossible\n";
         return 0;
     };
 
     vs arranged;
+    // add those of count 2 to arranged first...
     for (auto &exp: exps) {
         if (counts[exp[0]-'A'] == 2) {
             arranged.pushb(exp);
         }
     }
 
+    // add that of count 1 to arranged last...
     for (auto &exp: exps) {
         if (counts[exp[0]-'A'] !=2) {
             arranged.pushb(exp);
         }
     }
 
+    // if the last element says it's greater than the greatest... invalid.
     if (arranged.back()[2] == arranged[0][0]) {
         cout << "Impossible\n";
         return 0;
     };
 
+    // print out solution...
     cout << arranged[2][2] << arranged[2][0] << arranged[0][0] << "\n";
     
 

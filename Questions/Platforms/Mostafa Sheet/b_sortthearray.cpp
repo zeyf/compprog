@@ -55,7 +55,14 @@ typedef map<string, vs > msvs;
 
 /*
 
-https://codeforces.com/contest/451/problem/B
+Link: https://codeforces.com/contest/451/problem/B
+
+Topic: Sorting
+
+Solution: Mark all decreasing segments. If more than 1 segment, no. If only one: reverse it, check if this sorts array. if not, no, else yes.
+
+Time Complexity: O(kLogS) where k is number of iterations to get to 1 digit.
+Space Complexity: O(1)
 
 */
 

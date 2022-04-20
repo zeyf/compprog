@@ -56,23 +56,28 @@ typedef map<string, vs > msvs;
 
 /*
 
-LINK
+Link: https://codeforces.com/contest/688/problem/B
 
+Topic: Geometry / Sorting
 
+Solution: Use rules of non-degenerate triangles + sorting.
 
-STRATEGY
-
-
+Time Complexity: O(NLogN)
+Space Complexity: O(N)
 
 */
 
 int main () {
 
+    // read in
     int n, x; cin >> n; vll lines(n);
     range(0, sz(lines), 1, x)
         cin >> lines[x]; 
 
+    // sort
     sort(lines.begin(), lines.end());
+
+    // check all triplets
     int r = 2; bool good = false;
     while (r<n && !good) {
         ll a = lines[r-2], b = lines[r-1], c = lines[r];
@@ -80,6 +85,7 @@ int main () {
         r++;
     };
 
+    // print answer
     if (good) cout << "YES\n";
     else cout << "NO\n";
 

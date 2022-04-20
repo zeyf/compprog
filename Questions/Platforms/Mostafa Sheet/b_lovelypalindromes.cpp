@@ -55,14 +55,24 @@ typedef map<string, vs > msvs;
 
 /*
 
-https://codeforces.com/contest/688/problem/B
+Link: https://codeforces.com/contest/688/problem/B
+
+Topic: Strings / Logic?
+
+Solution: Print as is and print in reverse.
+
+Time Complexity: O(N)
+Space Complexity: O(1)
 
 */
 
 int main () {
 
+    // read int
     string s; cin >> s;
     cout << s;
+
+    // print in reverse
     int x; range(s.size()-1, -1, -1, x) cout << s[x];
     cout << "\n";
 
