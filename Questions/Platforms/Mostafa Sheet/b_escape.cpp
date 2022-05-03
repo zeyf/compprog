@@ -1,20 +1,17 @@
 #include <bits/stdc++.h>
+//#include <stdio.h>
  
 #define range(startInc, endEx, step, var) for (var = startInc; step < 0 ? var > endEx : var < endEx; var += step)
 using namespace std;
 
 /*DEFINES*/
 
-#define add push_back
-#define rem pop_back
+#define pushb push_back
+#define popb pop_back
 #define ins insert
 #define co count
-#define fi first
-#define se second
 #define sorter(a, comp) sort(a.begin(), a.end(), comp)
 #define sz(a) a.size()
-#define nl << "\n"
-#define cnl cout << "\n"
 
 
 /*
@@ -55,22 +52,32 @@ typedef map<char, int> mci;
 typedef map<int, vi > mivi;
 typedef map<string, vs > msvs;
 
-
 /*
 
-LINK:
+Link: 
 
-TOPIC:
+Topic: 
 
-STRATEGY:
-
-
+Solution:
 
 */
 
 int main () {
 
+    int vp, vd, t, f, c; cin >> vp >> vd >> t >> f >> c;
 
+    int princessPos = vp*t, dragonPos = 0, bijous = 0;
+
+    while (princessPos < c) {
+        if (dragonPos+vd >= princessPos) {
+            bijous++;
+            dragonPos -= f*vd;
+        } else
+            dragonPos += vd;
+        princessPos += vp;
+    }
+
+    cout << bijous << "\n";
 
     return 0;
 };

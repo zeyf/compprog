@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
- 
+
 #define range(startInc, endEx, step, var) for (var = startInc; step < 0 ? var > endEx : var < endEx; var += step)
 using namespace std;
 
@@ -15,8 +15,6 @@ using namespace std;
 #define sz(a) a.size()
 #define nl << "\n"
 #define cnl cout << "\n"
-
-
 /*
 TYPEDEFS
 */
@@ -55,21 +53,41 @@ typedef map<char, int> mci;
 typedef map<int, vi > mivi;
 typedef map<string, vs > msvs;
 
+// recursive subsets
 
-/*
+// Time Complexity: O(2^n)
+// Space Complexity: O(2^n)
+void subsets(string base, int k = 0, string built = "") {
+    if (k == sz(base)) {
+        cout << built nl;
+        return;
+    }
 
-LINK:
+    // don't take
+    subsets(base, k+1, built);
+    // take
+    subsets(base, k+1, built+base[k]);
+};
 
-TOPIC:
 
-STRATEGY:
-
-
-
-*/
 
 int main () {
 
+    string str = "yo";
+    subsets(str);
+
+    cout nl nl nl;
+    // iterative subsets.
+    // Time Complexity: O(n*2^n)
+    // Space Complexity: O(1)
+    int subset; range(0, 1<<sz(str), 1, subset) {
+        int x; range(0, sz(str), 1, x) {
+            if ((subset & (1<<x)) != 0)
+                cout << str[x];
+        };
+        
+        cnl;
+    };
 
 
     return 0;
