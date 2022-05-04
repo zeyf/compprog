@@ -43,6 +43,9 @@ typedef vector<int> vi;
 typedef vector<ll> vll;
 typedef vector<string> vs;
 typedef vector<pii > vpii;
+typedef vector<char> vc;
+typedef vector<vc > vvc;
+typedef vector<vi > vvi;
 
 /*
 MAP TYPEDEFS
