@@ -113,7 +113,7 @@ bool weightedEdgeComparator(pair<pair<string, string>, int> a, pair<pair<string,
 };
 
 // runs Kruskal's MST with Disjoint Set / Union Find data structure.
-void KruskalsMSTAlgorithm(vector<pair<pair<string, string>, int> >& edges, WeightedGraph &graph) {
+void kruskal(vector<pair<pair<string, string>, int> >& edges, WeightedGraph &graph) {
 
     // Step 1: Sort the edges
     sort(edges.begin(), edges.end(), weightedEdgeComparator);
@@ -185,7 +185,7 @@ int main () {
     g.addEdge("Destin", "Tallahassee", 4);
 
     vector<pair<pair<string, string>, int> > uniqueEdges = g.getUniqueEdges();
-    KruskalsMSTAlgorithm(uniqueEdges, g);
+    kruskal(uniqueEdges, g);
 
     return 0;
 };
