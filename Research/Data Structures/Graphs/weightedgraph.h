@@ -21,7 +21,7 @@ public:
     }
 
 private:
-    map<T, vector<pair<int, T> > > adjlist;
+    unordered_map<T, vector<pair<int, T> > > adjlist;
     unordered_set<T> vertices;
     bool undirected;
 
