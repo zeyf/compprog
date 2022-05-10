@@ -17,7 +17,7 @@ void dfs(int u, int p, mivi &graph, set<int> &visited, vector<int> &intime, vect
         if (v==p) continue;
         if (!visited.count(v)) {
             dfs(v, u, graph, visited, intime, lowlink, art, timer + 1);
-            lowlink[u] = min(intime[u], lowlink[v]);
+            lowlink[u] = min(lowlink[u], lowlink[v]);
             if (lowlink[v] >= intime[u] && u != p)
                 art.insert(u);
             children++;
