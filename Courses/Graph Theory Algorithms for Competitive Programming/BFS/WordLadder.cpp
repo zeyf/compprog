@@ -43,6 +43,7 @@ int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
     q.push(make_pair(beginWord, 1));
     visited.insert(beginWord);
 
+
     while (!q.empty()) {
 
         pair<string, int> c = q.front();
