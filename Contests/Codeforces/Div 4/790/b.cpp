@@ -58,10 +58,26 @@ typedef map<char, int> mci;
 typedef map<int, vi > mivi;
 typedef map<string, vs > msvs;
 
+/*
+
+Link: https://codeforces.com/contest/1676/problem/B
+
+Topic: Greedy / Math
+
+Approach: Normalize the boxes that are greater than min(boxes) to be equal to min. Sum the difference between mini and any given greater box.
+
+Time Complexity: O(N)
+Space Complexity: O(N)
+
+*/
+
 int main () {
 
+    // tc test cases...
     int tc; cin >> tc;
     while (tc--) {
+
+        // read in boxes and track the minimum of the boxes candy count.
         int n; cin >> n;
         vll boxes;
         ll mini = 10e16;
@@ -70,12 +86,14 @@ int main () {
             mini = min(mini, box);
         };
 
+        // take sum of normalization distance for each box if greater than the minimum needed.
         ll ans = 0;
         for (auto box: boxes) {
             if (box > mini)
                 ans += box - mini;
         };
 
+        // print answer
         cout << ans nl;
     }
 

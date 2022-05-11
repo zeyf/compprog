@@ -58,23 +58,41 @@ typedef map<char, int> mci;
 typedef map<int, vi > mivi;
 typedef map<string, vs > msvs;
 
+/*
+
+Link: https://codeforces.com/contest/1676/problem/C
+
+Topic: Bruteforce / Greedy
+
+Approach: Iterate over all pairs of strings. Compare the character differences at each index of their equal length strings.
+Then be greedy and take the smallest difference.
+
+Time Complexity: O(M*N^2)
+Space Complexity: O(N)
+
+*/
+
 int main () {
 
+    // tc test cases...
     int tc; cin >> tc;
     while (tc--) {
+
+        // read in number of strings and their lengths and strings
         int n, m; cin >> n >> m;
         int x;
 
+        // read in the words
         vector<string> words(n);
-        range(0, n,1,x) {
+        range(0, n,1,x)
             cin >> words[x];
-        };
 
-
+        // iterate over all pairs of strings
         ll ans = 10e16;
         int y,z;
         range(0, n, 1, x) {
             range(x+1, n, 1, y) {
+                // iterate over each index of the pair of words, sum differences and take minimum.
                 ll diff = 0;
                 range(0, m, 1, z) {
                     diff += abs(words[x][z]-words[y][z]);
@@ -84,6 +102,7 @@ int main () {
 
         }
 
+        // print answer
         cout << ans nl;
     };
 

@@ -3,16 +3,6 @@
 #define range(startInc, endEx, step, var) for (var = startInc; step < 0 ? var > endEx : var < endEx; var += step)
 using namespace std;
 
-//common file for PBDS
-#include<ext/pb_ds/assoc_container.hpp>
-//including tree_order_statistics_node_update
-#include<ext/pb_ds/tree_policy.hpp>
-//namespace
-using namespace __gnu_pbds;
- 
-//macro definition
-#define ordered_set_less tree<long long, null_type, less<long long>, rb_tree_tag, tree_order_statistics_node_update>
-#define ordered_set_more tree<long long, null_type, greater<long long>, rb_tree_tag, tree_order_statistics_node_update>
 
 /*DEFINES*/
 
@@ -69,13 +59,28 @@ typedef map<char, int> mci;
 typedef map<int, vi > mivi;
 typedef map<string, vs > msvs;
 
+/*
 
+Link: https://codeforces.com/contest/1676/problem/E
+
+Topic: Greedy / Sorting / Prefix Sum / Binary Search
+
+Approach: Sorted in the candy in descending order, built a prefix sum array from them, and answered queries with lower_bound (binary search.)
+
+Time Complexity: O(NlogN + QlogN)
+Space Complexity: O(N)
+
+*/
 
 int main () {
 
+    // tc test cases...
     int tc; cin >> tc;
     while (tc--) {
+        // read in n and q
         int n, q; cin >> n >> q;
+
+        // read in the sugar per candy
         vector<ll> candies;
         int x;
         range(0, n , 1, x) {
@@ -83,23 +88,28 @@ int main () {
             candies.add(sugar);
         };
 
+        // sort and then reverse the array to get in descending order
         sort(candies.begin(), candies.end());
         reverse(candies.begin(), candies.end());
+
+        // calculate prefix sum
         range(0, n-1, 1, x)
             candies[x+1] += candies[x];
 
-
-
+        // perform queries
         while (q--) {
+            // read in sugar amount
             ll xj; cin >> xj;
 
-            auto it = lower_bound(candies.begin(), candies.end(), xj, greater<int>());
+            // binary search for min sugar needed.
+            auto it = lower_bound(candies.begin(), candies.end(), xj);
+            // if not found, it exceeded the sum of the original array. print -1.
             if (it == candies.end()) {
-                cout << "-1\n";
+                cout << -1 << "\n";
+            // else print the 1-indexed count of the prefix sum that represents the number of candy eaten for xj sugar.
             } else
                 cout << (int)(it-candies.begin())+1 << "\n";
         }
-
 
     };
 

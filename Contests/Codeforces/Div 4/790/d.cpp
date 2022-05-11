@@ -61,6 +61,20 @@ typedef map<string, vs > msvs;
 int n, m;
 vvi board(201, vi(201, 0));
 
+/*
+
+Link: https://codeforces.com/contest/1676/problem/D
+
+Topic: Bruteforce / Greedy
+
+Approach: Go to every location in the grid. Iterate overall both diagonals fully -- no overlap.
+
+Time Complexity: O(N*M*max(N,M))
+Space Complexity: O(N*M)
+
+*/
+
+// gets full diagonal sum with no overlap.
 ll getSum(int x, int y) {
 
     int a = x, b = y;
@@ -91,10 +105,14 @@ ll getSum(int x, int y) {
 
 int main () {
 
+    // tc test cases...
     int tc; cin >> tc;
     while (tc--) {
+
+        // read in dimensions.
         cin >> n >> m;
 
+        // read in board
         for (int x = 0; x < n; ++x) {
             for (int y = 0; y < m;  ++y) {
                 cin >> board[x][y];
@@ -102,12 +120,14 @@ int main () {
         };
 
         ll ans = 0;
+        // at every location calculate all diagonal sum. take the maximum.
         for (int x = 0; x < n; ++x) {
             for (int y = 0; y < m;  ++y) {
                 ans = max(ans,getSum(x,y));
             };
         };
 
+        // print answer.
         cout << ans nl;
     }
 

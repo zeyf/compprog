@@ -58,13 +58,27 @@ typedef map<char, int> mci;
 typedef map<int, vi > mivi;
 typedef map<string, vs > msvs;
 
+/*
+
+Link: https://codeforces.com/contest/1676/problem/A
+
+Topic: Implementation
+
+Approach: Simple if check.
+
+Time Complexity: O(1)
+Space Complexity: O(1)
+
+*/
+
 int main () {
     int n; cin >> n;
 
+    // n cases
     while (n--) {
-
+        // read string, check sums
         string s; cin >> s;
-        if (s[0]-48+s[1]-48+s[2]-48 == s[3]-48+s[4]-48+s[5]-48)
+        if (s[0]+s[1]+s[2]-48*3 == s[3]+s[4]+s[5]-48*3)
             cout << "YES\n";
         else
             cout << "NO\n";
