@@ -78,7 +78,7 @@ void findBridges(int u, SimpleGraph<int> &graph, vector<int> &in, vector<int> &l
             This means that removing this edge will NOT result in a bridge as there is another path to it -- meaning a back edge to u itself exists, aside from that of u and nbr (parents not considered)
             So if the only way to get to nbr and it's descendants is through the u--nbr edge, then we have a bridge.
             */
-            if (lowLink[nbr] > lowLink[u])
+            if (lowLink[nbr] > in[u])
                 cout<<u<<" --- "<<nbr<<"\n";
         } else {
             // If we have already visited this node, this means we are at a backedge, meaning take the minimum of the current node lowLink and the visited neighbor's in time.
@@ -145,7 +145,7 @@ void findArticulationPoints(int u, SimpleGraph<int> &graph, vector<int> &in, vec
             The root would ALWAYS be included as a cut point despite possibly not being one...
             The root is accounted for based on the disconnected components (children) it has...
             */
-            if (lowLink[nbr] >= lowLink[u] && u != parent && !cutPoints.count(u)) {
+            if (lowLink[nbr] >= in[u] && u != parent && !cutPoints.count(u)) {
                 cout << u << " IS A CUTPOINT!\n";
                 cutPoints.insert(u);
             };
