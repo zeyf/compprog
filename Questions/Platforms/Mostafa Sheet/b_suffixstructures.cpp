@@ -148,14 +148,21 @@ private:
 
 /*
 
-Link:
+Link: https://codeforces.com/contest/448/problem/B
 
-Topic:
+Topic: Strings / Subsequences (Implementation - 1400)
 
 Approach:
 
-Time Complexity:
-Space Complexity:
+Disqualify simple case -- more letters in t than s, need tree.
+If t is a subsequence of s, then we can have done so with just an automaton. Sure, array could have been used but not changed subsequence qualification.
+If frequencies of a letter in t exceed those of s, need tree.
+
+If the s and t length are same and not subsequence -- array case
+If t length is < s length and non subsequence -- both case
+
+Time Complexity: O(S+T)
+Space Complexity: O(1)
 
 */
 
@@ -164,51 +171,48 @@ int main () {
 
     string s, t; cin >> s >> t;
 
-    /*
-    note: s and t are different words
-
-    idea for the automaton case: check if the word t is a subsequence of the word s, if so the automaton can be used.
-
-    idea for the suffix array case: if word t is not a subsequence of the word s,
-        check if all of the letters in t are in s with the same frequency. if so, we can use the array.
-        if not we need a tree.
-
-        if the length of word t is greater than s, we need tree.
-    */
-
+    // simple invalidation check.
     if (sz(t) > sz(s)) {
         cout << "need tree\n";
+        return 0;
+    };
+
+    vector<int> freqS(26,0), freqT(26,0);
+    int x = 0, y = 0;
+
+    // check if t is a subsequence of s, and frequency count s
+    for (auto c: s) {
+        freqS[c-'a']++;
+        if (t[x]==c) x++;
+    };
+
+    // frequency count t
+    for (auto c: t) {
+        freqT[c-'a']++;
+    }
+
+    // t is subsequence of s, we only removed letters, or swaps didn't change subsequence capability, only automaton.
+    if (x == sz(t)) {
+        cout << "automaton\n";
     } else {
-        int x = 0, y = 0;
-        vector<int> freqS(26,0), freqT(26,0);
-        for (auto c: s) {
-            freqS[c-'a']++;
-            if (t[x]==c) x++;
-        };
 
-        // if t is a subsequence of s...
-        if (x == sz(t)) cout << "automaton\n";
-        else {
-            for (auto c: t) {
-                freqT[c-'a']++;
-                if (freqS[c-'a'] == 0) {
-                    cout << "need tree\n";
-                    return 0;
-                };
+        // since automaton only removes, and array only swaps, if we have additional characters in t not in s, need tree
+        for (auto c: t) {
+            if (freqT[c-'a'] > freqS[c-'a']) {
+                cout << "need tree\n";
+                return 0;
             };
-
-            int z; range(0, 26, 1, z) {
-                if (freqT[z] > freqS[z]) {
-                    cout << "need tree\n";
-                    return 0;
-                } else if (freqT[z] < freqS[z]) {
-                    cout << "both\n";
-                    return 0;
-                }
-            }
-            
-            cout << "array\n";
         };
+
+        // if we have the same length, we did not remove characters
+        if (sz(t)==sz(s)) {
+            cout << "array\n";
+
+        // we can only be lesser than, so since not subsequence and not >=, must be non subsequence and <. therfore, both.
+        } else {
+            cout << "both\n";
+        }
+
     };
 
     return 0;

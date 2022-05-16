@@ -148,11 +148,12 @@ private:
 
 /*
 
-Link:
+Link: https://codeforces.com/contest/88/problem/B
 
-Topic:
+Topic: Implementation 1500, Bruteforce, Hashing
 
-Approach:
+Approach: Read in board. Store all location of shifts, all of other letters in buckets. Invalidate cases.
+Try all combinations of shifts with an uppercase -- hash answer if not possible without two hands.
 
 Time Complexity: O(N*M + S*L*(N*M - L))
 
@@ -172,12 +173,12 @@ Space Complexity: idk
 
 */
 
-vector<pii> shifts;
 
 int main () {
 
     int n, m, k; cin >> n >> m >> k;
     vector<pii> keys[26];
+    vector<pii> shifts;
 
 
     // read in the board
