@@ -204,7 +204,7 @@ int main () {
     cin >> len >> s;
 
     // instantiate the map to see if uppercase letters are able to be placed with 1 hand.
-    map<char, bool> upperGood;
+    map<char, int> upperGood;
 
     // check for invalidation of the string
     for (char c: s) {
@@ -217,7 +217,7 @@ int main () {
             }
 
             // else assume we can do it!
-            upperGood[c]=true;
+            upperGood[c]=-1;
         
         // if we have a lowercase letter in the string
         } else {
@@ -237,10 +237,11 @@ int main () {
         // if uppercase...
         if (c >= 'A' && c <= 'Z') {
             // if we have previously processed this letter and know it needs 2 hands, account for it, continue
-            if (!upperGood[c]) {
+            if (upperGood[c]==0) {
                 ans++;
                 continue;
-            };
+            } else if (upperGood[c]==1)
+                continue;
 
             bool good = false;
 
@@ -265,8 +266,10 @@ int main () {
             // hash the answers for same character to save computation.
             if (!good) {
                 ans++;
-                upperGood[c]=false;
-            };
+                upperGood[c]=0;
+            } else {
+                upperGood[c]=1;
+            }
 
         };
     };
